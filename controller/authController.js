@@ -1,3 +1,3 @@
-module.exports.admin_login =(req, res, next) => {
+module.exports.admin_login =(req, res) => {
     console.log('call');
 }

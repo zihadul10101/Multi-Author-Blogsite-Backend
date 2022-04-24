@@ -4,7 +4,7 @@ const dotEnv = require('dotenv');
 var app = express();
 
 const dbConnect = require('./config/dbConnect')
-
+const authRouter = require('./routes/authRoutes')
 
 
 
@@ -16,7 +16,13 @@ dotEnv.config({
     path: 'config/config.env'
 })
 
+// router use
+app.use('/rest-api',authRouter)
+
+
 dbConnect();
+
+
 
 const PORT =  4000;
 

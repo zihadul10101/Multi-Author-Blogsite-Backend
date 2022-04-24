@@ -3,16 +3,22 @@ const dotEnv = require('dotenv');
 
 var app = express();
 
-const PORT = process.env.PORT || 4000;
+const dbConnect = require('./config/dbConnect')
+
+
 
 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.send('Hello Bangladesh!')
   })
 
 dotEnv.config({
     path: 'config/config.env'
 })
+
+dbConnect();
+
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, (error) => {
     if(!error){

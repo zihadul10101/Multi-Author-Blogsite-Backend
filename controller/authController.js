@@ -1,5 +1,7 @@
 const validator = require('validator');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 const adminModel = require('../models/adminModel')
 module.exports.admin_login = async (req, res) => {
     // console.log(req.body);
@@ -28,17 +30,32 @@ module.exports.admin_login = async (req, res) => {
                 const matchPassword = await bcrypt.compare(password, getAdmin.password);
                 // console.log(matchPassword);
                 if (matchPassword) {
+                    const token = jwt.sign({
+                        id: getAdmin._id,
+                        name: getAdmin.adminname,
+                        role: getAdmin.role,
+                        image: getAdmin.image,
+                    }, 'zihadulid', { expiresIn: '7d' });
 
+                    return res.status(200).cookie("blog_token", token, {
+                        expires: new Date(
+                            Date.now() + 7 * 24 * 60 * 60 * 1000
+                        ),
+                        httpOnly: true
+                    }).json({
+                        successMessage: 'Login successful',
+                        token: token
+                    });
                 }
                 else {
                     return res.status(404).json({ errorMessage: 'Password does not exist' });
-
                 }
             } else {
                 return res.status(404).json({ errorMessage: 'Email does not exist' });
             }
         } catch (error) {
-            console.log(error);
+            return res.status(500).json({ errorMessage: 'Server error' });
+
         }
     }
 }

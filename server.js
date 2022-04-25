@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
   })
 
 dotEnv.config({
-    path: 'config/config.env'
+    path: './config/config.env'
 })
 // use meddlewer
 app.use(bodyParser.json());

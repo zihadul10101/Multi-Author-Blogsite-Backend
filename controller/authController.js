@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const adminModel = require('../models/adminModel')
 module.exports.admin_login = async (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
     const { email, password } = req.body;
 
     const error = {

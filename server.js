@@ -2,6 +2,7 @@ var express = require('express');
 const dotEnv = require('dotenv');
 const bodyParser = require('body-parser');
 var app = express();
+const cors= require('cors')
 const cookieParser = require('cookie-parser');
 const dbConnect = require('./config/dbConnect')
 const authRouter = require('./routes/authRoutes')
@@ -18,6 +19,7 @@ dotEnv.config({
 // use meddlewer
 app.use(bodyParser.json());
 app.use(cookieParser())
+app.use(cors())
 // router use
 app.use('/rest-api',authRouter)
 

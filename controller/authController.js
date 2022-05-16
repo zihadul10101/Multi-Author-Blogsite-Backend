@@ -48,13 +48,13 @@ module.exports.admin_login = async (req, res) => {
                     });
                 }
                 else {
-                    return res.status(404).json({ errorMessage: 'Password does not exist' });
+                    return res.status(404).json({ errorMessage:{error:"Password does not match"}});
                 }
             } else {
-                return res.status(404).json({ errorMessage: 'Email does not exist' });
+                return res.status(404).json({ errorMessage: {error:'Email does not exist' }});
             }
         } catch (error) {
-            return res.status(500).json({ errorMessage: 'Server error' });
+            return res.status(500).json({ errorMessage: {error:'Server error'} });
 
         }
     }

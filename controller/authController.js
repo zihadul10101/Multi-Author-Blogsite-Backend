@@ -7,9 +7,7 @@ module.exports.admin_login = async (req, res) => {
     console.log(req.body);
     const { email, password } = req.body;
 
-    const error = {
-
-    }
+    const error = {}
 
     if (email && !validator.isEmail(email)) {
         error.email = 'please provide your valid email'
@@ -43,18 +41,18 @@ module.exports.admin_login = async (req, res) => {
                         ),
                         httpOnly: true
                     }).json({
-                        successMessage: 'Login successful',
+                        successMessage: 'Congratulations Login successful',
                         token: token
                     });
                 }
                 else {
-                    return res.status(404).json({ errorMessage:{error:"Password does not match"}});
+                    return res.status(404).json({ errorMessage: { error: "Password does not match" } });
                 }
             } else {
-                return res.status(404).json({ errorMessage: {error:'Email does not exist' }});
+                return res.status(404).json({ errorMessage: { error: 'Email does not exist' } });
             }
         } catch (error) {
-            return res.status(500).json({ errorMessage: {error:'Server error'} });
+            return res.status(500).json({ errorMessage: { error: 'Server error' } });
 
         }
     }

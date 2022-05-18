@@ -1,3 +1,4 @@
 module.exports.category_add = (req, res, next) => {
-    console.log('call');
+   const {categoryName,categoryDescription} = req.body;
+    console.log(categoryName);
 }

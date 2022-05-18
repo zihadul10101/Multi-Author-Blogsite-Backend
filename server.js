@@ -20,9 +20,12 @@ dotEnv.config({
   path: './config/config.env'
 })
 // use meddlewer
-app.use(bodyParser.json());
 app.use(cookieParser())
-app.use(cors())
+app.use(bodyParser.json());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}))
 // router use
 app.use('/rest-api', authRouter)
 app.use('/rest-api', dashboradRouter)

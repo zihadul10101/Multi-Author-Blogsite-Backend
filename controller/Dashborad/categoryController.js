@@ -83,7 +83,17 @@ module.exports.category_get = async (req, res) => {
         }
     }
 }
-module.exports.category_delete = (req, res) => {
-   const categoryId = req.params.categoryId
-   console.log(categoryId);
+module.exports.category_delete = async(req, res) => {
+    const categoryId = req.params.categoryId
+    try {
+        const categoryDelete = await categoryModel.findByIdAndDelete(categoryId);
+        res.status(200).json({
+            successMessage: 'Category deleted successfully'
+        })
+    } catch (error) {
+        res.status(500).json({
+            errorMessage:
+                { error: 'Internal Error' }
+        })
+    }
 }

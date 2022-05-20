@@ -98,9 +98,11 @@ module.exports.category_delete = async (req, res) => {
     }
 }
 module.exports.edit_category = async (req, res) => {
-    const {categorySulg} = req.params
+
+    const categorySulg = req.params.categorySulg
+
     try {
-        const editCategory = await categoryModel.findOne(categorySulg);
+        const editCategory = await categoryModel.findOne({categorySulg});
         res.status(200).json({
             editCategory
         })

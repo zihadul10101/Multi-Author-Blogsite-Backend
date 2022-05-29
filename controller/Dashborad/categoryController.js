@@ -102,7 +102,7 @@ module.exports.edit_category = async (req, res) => {
     const categorySulg = req.params.categorySulg
 
     try {
-        const editCategory = await categoryModel.findOne({categorySulg});
+        const editCategory = await categoryModel.findOne({ categorySulg });
         res.status(200).json({
             editCategory
         })
@@ -113,3 +113,39 @@ module.exports.edit_category = async (req, res) => {
         })
     }
 }
+module.exports.category_update = async (req, res) => {
+
+    const categoryId = req.params
+    const { categoryName, categoryDescription } = req.body
+    console.log(categoryName)
+    const error = {};
+    if (!categoryName) {
+        error.categoryName = 'please provide your  category Name'
+    }
+    if (!categoryDescription) {
+        error.categoryDescription = 'please provide your category Description'
+    }
+    if (Object.keys(error).length === 0) {
+        const categorySulg = categoryName.trim().split(' ').join('-')
+        try {
+            await categoryModel.findByIdAndUpdate(categoryId, {
+                categoryName: categoryName.trim(),
+                categorySulg,
+                categoryDescription
+            })
+            res.status(200).json({
+                successMessage: 'Category update successfull'
+            })
+        } catch (error) {
+            res.status(500).json({
+                errorMessage: {
+                    error: 'Internal server error'
+                }
+            })
+        }
+    } else {
+        res.status(400).json({ errorMessage: error })
+    }
+}
+
+

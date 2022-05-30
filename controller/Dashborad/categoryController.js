@@ -45,7 +45,7 @@ module.exports.category_add = async (req, res, next) => {
 
 module.exports.category_get = async (req, res) => {
     const { page, searchValue } = req.query;
-    const perPage = 5;
+    const perPage = 3;
     const skipPage = parseInt(page - 1) * perPage;
     if (searchValue === 'undefined' || !searchValue) {
         try {

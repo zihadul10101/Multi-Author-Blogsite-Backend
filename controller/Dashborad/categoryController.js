@@ -45,7 +45,7 @@ module.exports.category_add = async (req, res, next) => {
 
 module.exports.category_get = async (req, res) => {
     const { page, searchValue } = req.query;
-    const perPage = 3;
+    const perPage = 5;
     const skipPage = parseInt(page - 1) * perPage;
     if (searchValue === 'undefined' || !searchValue) {
         try {
@@ -115,22 +115,22 @@ module.exports.edit_category = async (req, res) => {
 }
 module.exports.category_update = async (req, res) => {
 
-    const categoryId = req.params
-    const { categoryName, categoryDescription } = req.body
-    console.log(categoryName)
+    const { categoryId } = req.params;
+    const {categoryName, categoryDescription } = req.body;
     const error = {};
+
     if (!categoryName) {
-        error.categoryName = 'please provide your  category Name'
+        error.categoryName = 'Please provide category name';
     }
     if (!categoryDescription) {
-        error.categoryDescription = 'please provide your category Description'
+        error.categoryDescription = 'Please provide category description'
     }
-    if (Object.keys(error).length === 0) {
-        const categorySulg = categoryName.trim().split(' ').join('-')
+    if (Object.keys(error).length == 0) {
+        const categorySlug = categoryName.trim().split(' ').join('-');
         try {
             await categoryModel.findByIdAndUpdate(categoryId, {
                 categoryName: categoryName.trim(),
-                categorySulg,
+                categorySlug,
                 categoryDescription
             })
             res.status(200).json({
@@ -144,8 +144,9 @@ module.exports.category_update = async (req, res) => {
             })
         }
     } else {
-        res.status(400).json({ errorMessage: error })
+        res.status(400).json({ errorMessage: error });
     }
 }
+
 
 

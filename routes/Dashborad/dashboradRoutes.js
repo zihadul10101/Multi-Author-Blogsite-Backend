@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const {category_add,category_get,category_delete,edit_category,category_update} = require('../../controller/Dashborad/categoryController')
 const {tag_add,tag_get,tag_delete,edit_tag,tag_update} = require('../../controller/Dashborad/tagController')
+const {get_tag_category} = require('../../controller/Dashborad/articalController')
 const {admin_middleware} = require('../../middlewar/authMiddlewar')
 // category route
 
@@ -16,5 +17,9 @@ router.get('/get-tag',admin_middleware,tag_get)
 router.delete('/delete-tag/:tagId',admin_middleware,tag_delete)
 router.get('/edit-tag/:tagSulg',admin_middleware,edit_tag);
 router.patch('/update-tag/:tagId',admin_middleware, tag_update);
+
+//artical route............
+
+router.get('/get-tag-category',admin_middleware, get_tag_category);
 
 module.exports = router;

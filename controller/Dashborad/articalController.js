@@ -1,5 +1,6 @@
 const categoryModel = require('../../models/categoryModel');
 const tagModel = require('../../models/tagModel');
+const formidable = require('formidable');
 
 module.exports.get_tag_category = async (req, res) => {
 
@@ -16,5 +17,13 @@ module.exports.get_tag_category = async (req, res) => {
     }
 }
 module.exports.add_artical = (req, res) => {
-    console.log('ok')
+    const formDataHendle = formidable({
+        multiples: true
+    });
+    formDataHendle.parse(req, (err, fields, files) => {
+        if (!err) {
+            const { title, category, slug, tag, text } = fields;
+            
+        }
+    })
 }

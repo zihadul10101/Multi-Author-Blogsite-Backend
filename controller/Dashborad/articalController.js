@@ -2,7 +2,7 @@ const categoryModel = require('../../models/categoryModel');
 const tagModel = require('../../models/tagModel');
 
 module.exports.get_tag_category = async (req, res) => {
-    console.log(req);
+
     try {
         const allTag = await tagModel.find({});
         const allCategory = await categoryModel.find({});
@@ -14,4 +14,7 @@ module.exports.get_tag_category = async (req, res) => {
             }
         })
     }
+}
+module.exports.add_artical = (req, res) => {
+    console.log('ok')
 }

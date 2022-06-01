@@ -1,6 +1,7 @@
 const categoryModel = require('../../models/categoryModel');
 const tagModel = require('../../models/tagModel');
 const formidable = require('formidable');
+const { article_validator } = require('../../validator/validator')
 
 module.exports.get_tag_category = async (req, res) => {
 
@@ -22,8 +23,9 @@ module.exports.add_artical = (req, res) => {
     });
     formDataHendle.parse(req, (err, fields, files) => {
         if (!err) {
-            const { title, category, slug, tag, text } = fields;
-            
+            const { title, category, slug, tag, text } = fields;  
+            const validate= article_validator( fields, files)
+            console.log(validate)
         }
     })
 }

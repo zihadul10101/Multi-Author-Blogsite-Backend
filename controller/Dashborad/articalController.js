@@ -27,7 +27,7 @@ module.exports.add_artical = (req, res) => {
     const { adminId, adminName } = req;
 
     formDataHendle.parse(req, (err, fields, files) => {
-        
+
         if (!err) {
 
             const { title, category, slug, tag, text } = fields;
@@ -36,7 +36,6 @@ module.exports.add_artical = (req, res) => {
                 const categoryName = category.split('-').join(' ');
                 const tagName = tag.split('-').join(' ');
                 files.image.originalFilename = Date.now() + files.image.originalFilename;
-
                 const uploadPath = __dirname + `../../../../frontend/public/articalImage/${files.image.originalFilename}`;
 
                 fs.copyFile(files.image.filepath, uploadPath, async (error) => {
@@ -74,7 +73,7 @@ module.exports.add_artical = (req, res) => {
                     }
                 })
             } else {
-                res.status(400).json({ errorMessage: validate.error })  
+                res.status(400).json({ errorMessage: validate.error })
             }
         }
     })

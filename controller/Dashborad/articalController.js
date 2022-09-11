@@ -88,30 +88,32 @@ module.exports.get_artical = async (req, res) => {
     const skipPage = parseInt(currentPage - 1) * parPage;
 
     let articals = [];
-
+  
     try {
         let articleCount = 0;
 
-        if (searchValue) {
+        if (searchValue === 'undefined') {
             if (role === 'admin') {
                 articleCount = await articleModel.find({}).countDocuments();
                 articals = await articleModel.find({}).skip(skipPage).limit(parPage).sort({ createAt: -1 });
-                articals = articals.filter(ar => ar.title.toUpperCase().indexOf(searchValue.toUpperCase()) > -1);
+               
             } else {
                 articleCount = await articleModel.find({ adminId }).countDocuments();
                 articals = await articleModel.find({ adminId }).skip(skipPage).limit(parPage).sort({ createAt: -1 });
-                articals = articals.filter(ar => ar.title.toUpperCase().indexOf(searchValue.toUpperCase()) > -1);
             }
         } else {
             if (role === 'admin') {
                 articleCount = await articleModel.find({}).countDocuments();
                 articals = await articleModel.find({}).skip(skipPage).limit(parPage).sort({ createAt: -1 });
+                articals = articals.filter(ar => ar.title.toUpperCase().indexOf(searchValue.toUpperCase()) > -1);
             } else {
                 articleCount = await articleModel.find({ adminId }).countDocuments();
                 articals = await articleModel.find({ adminId }).skip(skipPage).limit(parPage).sort({ createAt: -1 });
+                articals = articals.filter(ar => ar.title.toUpperCase().indexOf(searchValue.toUpperCase()) > -1);
             }
+           
         }
-
+        console.log('data',articals);
         res.status(200).json({
             allArticle: articals,
             parPage,
